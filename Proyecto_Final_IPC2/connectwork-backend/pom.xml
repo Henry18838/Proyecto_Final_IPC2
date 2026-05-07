@@ -18,11 +18,11 @@
 
   <dependencies>
 
-    <!-- Jakarta Servlets (Tomcat 9 usa jakarta.servlet) -->
+    <!-- Javax Servlets (Tomcat 9) -->
     <dependency>
-      <groupId>jakarta.servlet</groupId>
-      <artifactId>jakarta.servlet-api</artifactId>
-      <version>5.0.0</version>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>4.0.1</version>
       <scope>provided</scope>
     </dependency>
 
@@ -40,14 +40,14 @@
       <version>0.4</version>
     </dependency>
 
-    <!-- JSON (para construir respuestas JSON fácilmente) -->
+    <!-- JSON -->
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
       <version>2.10.1</version>
     </dependency>
 
-    <!-- JWT (autenticación con tokens) -->
+    <!-- JWT -->
     <dependency>
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt-api</artifactId>
@@ -66,7 +66,7 @@
       <scope>runtime</scope>
     </dependency>
 
-    <!-- iText para generar PDFs de reportes -->
+    <!-- iText PDF -->
     <dependency>
       <groupId>com.itextpdf</groupId>
       <artifactId>itextpdf</artifactId>
