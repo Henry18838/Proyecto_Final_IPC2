@@ -1,1 +1,108 @@
-<p>gestionar-categorias works!</p>
+<div class="admin-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>🔗 ConnectWork</h2>
+      <p>Panel Admin</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a routerLink="/admin" class="nav-item">🏠 Dashboard</a>
+      <a routerLink="/admin/categorias" class="nav-item active">📂 Categorías y Habilidades</a>
+      <a routerLink="/admin/usuarios" class="nav-item">👥 Usuarios</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <h1>📂 Categorías y Habilidades</h1>
+
+    <!-- Crear categoría -->
+    <div class="card">
+      <h2>Nueva Categoría</h2>
+      <div class="form-row">
+        <input type="text" [(ngModel)]="nuevaCategoria" placeholder="Nombre de la categoría" class="form-control" />
+        <button class="btn-primary" (click)="crearCategoria()">Crear</button>
+      </div>
+    </div>
+
+    <!-- Lista de categorías -->
+    <div class="card">
+      <h2>Categorías Registradas</h2>
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (cat of categorias; track cat.id) {
+            <tr>
+              <td>{{ cat.id }}</td>
+              <td>
+                @if (editando?.id === cat.id) {
+                  <input [(ngModel)]="editando.nombre" class="form-control-sm" />
+                } @else {
+                  {{ cat.nombre }}
+                }
+              </td>
+              <td>
+                <span [class]="cat.activa ? 'badge-activo' : 'badge-inactivo'">
+                  {{ cat.activa ? 'Activa' : 'Inactiva' }}
+                </span>
+              </td>
+              <td class="acciones">
+                @if (editando?.id === cat.id) {
+                  <button class="btn-success" (click)="guardarEdicion()">Guardar</button>
+                  <button class="btn-secondary" (click)="editando = null">Cancelar</button>
+                } @else {
+                  <button class="btn-warning" (click)="editarCategoria(cat)">Editar</button>
+                  <button [class]="cat.activa ? 'btn-danger' : 'btn-success'" (click)="toggleCategoria(cat)">
+                    {{ cat.activa ? 'Desactivar' : 'Activar' }}
+                  </button>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Crear habilidad -->
+    <div class="card">
+      <h2>Nueva Habilidad</h2>
+      <div class="form-grid">
+        <input type="text" [(ngModel)]="nuevaHabilidad.nombre" placeholder="Nombre de la habilidad" class="form-control" />
+        <input type="text" [(ngModel)]="nuevaHabilidad.descripcion" placeholder="Descripción" class="form-control" />
+        <select [(ngModel)]="nuevaHabilidad.idCategoria" class="form-control">
+          <option value="0">Selecciona categoría</option>
+          @for (cat of categorias; track cat.id) {
+            @if (cat.activa) {
+              <option [value]="cat.id">{{ cat.nombre }}</option>
+            }
+          }
+        </select>
+        <button class="btn-primary" (click)="crearHabilidad()">Crear Habilidad</button>
+      </div>
+    </div>
+
+    <!-- Lista habilidades -->
+    <div class="card">
+      <h2>Habilidades Registradas</h2>
+      <table class="tabla">
+        <thead>
+          <tr><th>ID</th><th>Nombre</th><th>Categoría</th></tr>
+        </thead>
+        <tbody>
+          @for (h of habilidades; track h.id) {
+            <tr>
+              <td>{{ h.id }}</td>
+              <td>{{ h.nombre }}</td>
+              <td>{{ h.nombreCategoria }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>

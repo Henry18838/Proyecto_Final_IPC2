@@ -1,1 +1,94 @@
-<p>gestionar-usuarios works!</p>
+<div class="admin-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>🔗 ConnectWork</h2>
+      <p>Panel Admin</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a routerLink="/admin" class="nav-item">🏠 Dashboard</a>
+      <a routerLink="/admin/categorias" class="nav-item">📂 Categorías y Habilidades</a>
+      <a routerLink="/admin/usuarios" class="nav-item active">👥 Usuarios</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <h1>👥 Gestión de Usuarios</h1>
+
+    <div class="tabs">
+      <button [class]="vista === 'clientes' ? 'tab active' : 'tab'" (click)="vista = 'clientes'">
+        Clientes ({{ clientes.length }})
+      </button>
+      <button [class]="vista === 'freelancers' ? 'tab active' : 'tab'" (click)="vista = 'freelancers'">
+        Freelancers ({{ freelancers.length }})
+      </button>
+    </div>
+
+    @if (vista === 'clientes') {
+      <div class="card">
+        <table class="tabla">
+          <thead>
+            <tr>
+              <th>ID</th><th>Nombre</th><th>Username</th><th>Email</th><th>Saldo</th><th>Estado</th><th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (c of clientes; track c.id) {
+              <tr>
+                <td>{{ c.id }}</td>
+                <td>{{ c.nombre }}</td>
+                <td>{{ c.username }}</td>
+                <td>{{ c.email }}</td>
+                <td>Q{{ c.saldo?.toFixed(2) }}</td>
+                <td>
+                  <span [class]="c.activo ? 'badge-activo' : 'badge-inactivo'">
+                    {{ c.activo ? 'Activo' : 'Inactivo' }}
+                  </span>
+                </td>
+                <td>
+                  <button [class]="c.activo ? 'btn-danger' : 'btn-success'"
+                    (click)="toggleUsuario(c.id, c.activo, 'cliente')">
+                    {{ c.activo ? 'Desactivar' : 'Activar' }}
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+
+    @if (vista === 'freelancers') {
+      <div class="card">
+        <table class="tabla">
+          <thead>
+            <tr>
+              <th>ID</th><th>Nombre</th><th>Username</th><th>Email</th><th>Calificación</th><th>Estado</th><th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (f of freelancers; track f.id) {
+              <tr>
+                <td>{{ f.id }}</td>
+                <td>{{ f.nombre }}</td>
+                <td>{{ f.username }}</td>
+                <td>{{ f.email }}</td>
+                <td>⭐ {{ f.calificacionPromedio?.toFixed(1) }}</td>
+                <td>
+                  <span [class]="f.activo ? 'badge-activo' : 'badge-inactivo'">
+                    {{ f.activo ? 'Activo' : 'Inactivo' }}
+                  </span>
+                </td>
+                <td>
+                  <button [class]="f.activo ? 'btn-danger' : 'btn-success'"
+                    (click)="toggleUsuario(f.id, f.activo, 'freelancer')">
+                    {{ f.activo ? 'Desactivar' : 'Activar' }}
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </main>
+</div>

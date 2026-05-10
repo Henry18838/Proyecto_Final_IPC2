@@ -1,0 +1,28 @@
+.admin-layout { display: flex; min-height: 100vh; background: #f5f6fa; }
+.sidebar { width: 260px; background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%); color: white; display: flex; flex-direction: column; position: fixed; height: 100vh; }
+.sidebar-header { padding: 24px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.sidebar-header h2 { margin: 0 0 4px 0; font-size: 1.3rem; }
+.sidebar-header p { margin: 0; opacity: 0.7; font-size: 0.85rem; }
+.sidebar-nav { flex: 1; padding: 16px 0; }
+.nav-item { display: block; padding: 14px 20px; color: rgba(255,255,255,0.8); text-decoration: none; transition: all 0.3s; font-size: 0.95rem; }
+.nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.1); color: white; border-left: 3px solid #3498db; }
+.main-content { margin-left: 260px; flex: 1; padding: 30px; }
+.main-content h1 { margin: 0 0 24px 0; color: #333; }
+.card { background: white; border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+.card h2 { margin: 0 0 16px 0; color: #444; font-size: 1.1rem; }
+.form-row { display: flex; gap: 12px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-control { padding: 10px 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 0.95rem; width: 100%; box-sizing: border-box; }
+.form-control-sm { padding: 6px 10px; border: 2px solid #667eea; border-radius: 6px; font-size: 0.9rem; width: 100%; }
+.form-control:focus, .form-control-sm:focus { outline: none; border-color: #667eea; }
+.tabla { width: 100%; border-collapse: collapse; }
+.tabla th { background: #f8f9fa; padding: 12px; text-align: left; font-size: 0.85rem; color: #666; border-bottom: 2px solid #e0e0e0; }
+.tabla td { padding: 12px; border-bottom: 1px solid #f0f0f0; font-size: 0.95rem; }
+.acciones { display: flex; gap: 8px; }
+.badge-activo { background: #d4edda; color: #155724; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; }
+.badge-inactivo { background: #f8d7da; color: #721c24; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; }
+.btn-primary { padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9rem; white-space: nowrap; }
+.btn-warning { padding: 6px 12px; background: #f39c12; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+.btn-danger { padding: 6px 12px; background: #e74c3c; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+.btn-success { padding: 6px 12px; background: #27ae60; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+.btn-secondary { padding: 6px 12px; background: #95a5a6; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }

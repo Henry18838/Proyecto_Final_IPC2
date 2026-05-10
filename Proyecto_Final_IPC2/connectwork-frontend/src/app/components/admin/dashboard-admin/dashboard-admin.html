@@ -1,1 +1,37 @@
-<p>dashboard-admin works!</p>
+<div class="admin-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>🔗 ConnectWork</h2>
+      <p>Panel Admin</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a routerLink="/admin" class="nav-item active">🏠 Dashboard</a>
+      <a routerLink="/admin/categorias" class="nav-item">📂 Categorías y Habilidades</a>
+      <a routerLink="/admin/usuarios" class="nav-item">👥 Usuarios</a>
+    </nav>
+    <div class="sidebar-footer">
+      <p>{{ usuario?.nombre }}</p>
+      <button (click)="logout()" class="btn-logout">Cerrar Sesión</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="welcome-card">
+      <h1>Bienvenido, {{ usuario?.nombre }} 👋</h1>
+      <p>Gestiona la plataforma ConnectWork desde aquí.</p>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card" routerLink="/admin/categorias">
+        <div class="card-icon">📂</div>
+        <h3>Categorías</h3>
+        <p>Gestiona categorías y habilidades del catálogo</p>
+      </div>
+      <div class="card" routerLink="/admin/usuarios">
+        <div class="card-icon">👥</div>
+        <h3>Usuarios</h3>
+        <p>Consulta y administra clientes y freelancers</p>
+      </div>
+    </div>
+  </main>
+</div>

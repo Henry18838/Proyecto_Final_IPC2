@@ -1,18 +1,18 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './components/auth/login/login.component';
-import { RegistroComponent } from './components/auth/registro/registro.component';
-import { CompletarPerfilComponent } from './components/auth/completar-perfil/completar-perfil.component';
-import { DashboardClienteComponent } from './components/cliente/dashboard-cliente/dashboard-cliente.component';
-import { MisProyectosComponent } from './components/cliente/mis-proyectos/mis-proyectos.component';
-import { CrearProyectoComponent } from './components/cliente/crear-proyecto/crear-proyecto.component';
-import { VerPropuestasComponent } from './components/cliente/ver-propuestas/ver-propuestas.component';
-import { DashboardFreelancerComponent } from './components/freelancer/dashboard-freelancer/dashboard-freelancer.component';
-import { ExplorarProyectosComponent } from './components/freelancer/explorar-proyectos/explorar-proyectos.component';
-import { MisPropuestasComponent } from './components/freelancer/mis-propuestas/mis-propuestas.component';
-import { MisContratosComponent } from './components/freelancer/mis-contratos/mis-contratos.component';
-import { DashboardAdminComponent } from './components/admin/dashboard-admin/dashboard-admin.component';
-import { GestionarCategoriasComponent } from './components/admin/gestionar-categorias/gestionar-categorias.component';
-import { GestionarUsuariosComponent } from './components/admin/gestionar-usuarios/gestionar-usuarios.component';
+import { Login } from './components/auth/login/login';
+import { Registro } from './components/auth/registro/registro';
+import { CompletarPerfil } from './components/auth/completar-perfil/completar-perfil';
+import { DashboardCliente } from './components/cliente/dashboard-cliente/dashboard-cliente';
+import { MisProyectos } from './components/cliente/mis-proyectos/mis-proyectos';
+import { CrearProyecto } from './components/cliente/crear-proyecto/crear-proyecto';
+import { VerPropuestas } from './components/cliente/ver-propuestas/ver-propuestas';
+import { DashboardFreelancer } from './components/freelancer/dashboard-freelancer/dashboard-freelancer';
+import { ExplorarProyectos } from './components/freelancer/explorar-proyectos/explorar-proyectos';
+import { MisPropuestas } from './components/freelancer/mis-propuestas/mis-propuestas';
+import { MisContratos } from './components/freelancer/mis-contratos/mis-contratos';
+import { DashboardAdmin } from './components/admin/dashboard-admin/dashboard-admin';
+import { GestionarCategorias } from './components/admin/gestionar-categorias/gestionar-categorias';
+import { GestionarUsuarios } from './components/admin/gestionar-usuarios/gestionar-usuarios';
 import { authGuard } from './guards/auth.guard';
 import { clienteGuard } from './guards/cliente.guard';
 import { freelancerGuard } from './guards/freelancer.guard';
@@ -20,26 +20,23 @@ import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'registro', component: RegistroComponent },
-  { path: 'completar-perfil', component: CompletarPerfilComponent, canActivate: [authGuard] },
+  { path: 'login', component: Login },
+  { path: 'registro', component: Registro },
+  { path: 'completar-perfil', component: CompletarPerfil, canActivate: [authGuard] },
 
-  // Cliente
-  { path: 'cliente', component: DashboardClienteComponent, canActivate: [authGuard, clienteGuard] },
-  { path: 'cliente/proyectos', component: MisProyectosComponent, canActivate: [authGuard, clienteGuard] },
-  { path: 'cliente/proyectos/crear', component: CrearProyectoComponent, canActivate: [authGuard, clienteGuard] },
-  { path: 'cliente/proyectos/:id/propuestas', component: VerPropuestasComponent, canActivate: [authGuard, clienteGuard] },
+  { path: 'cliente', component: DashboardCliente, canActivate: [authGuard, clienteGuard] },
+  { path: 'cliente/proyectos', component: MisProyectos, canActivate: [authGuard, clienteGuard] },
+  { path: 'cliente/proyectos/crear', component: CrearProyecto, canActivate: [authGuard, clienteGuard] },
+  { path: 'cliente/proyectos/:id/propuestas', component: VerPropuestas, canActivate: [authGuard, clienteGuard] },
 
-  // Freelancer
-  { path: 'freelancer', component: DashboardFreelancerComponent, canActivate: [authGuard, freelancerGuard] },
-  { path: 'freelancer/explorar', component: ExplorarProyectosComponent, canActivate: [authGuard, freelancerGuard] },
-  { path: 'freelancer/propuestas', component: MisPropuestasComponent, canActivate: [authGuard, freelancerGuard] },
-  { path: 'freelancer/contratos', component: MisContratosComponent, canActivate: [authGuard, freelancerGuard] },
+  { path: 'freelancer', component: DashboardFreelancer, canActivate: [authGuard, freelancerGuard] },
+  { path: 'freelancer/explorar', component: ExplorarProyectos, canActivate: [authGuard, freelancerGuard] },
+  { path: 'freelancer/propuestas', component: MisPropuestas, canActivate: [authGuard, freelancerGuard] },
+  { path: 'freelancer/contratos', component: MisContratos, canActivate: [authGuard, freelancerGuard] },
 
-  // Admin
-  { path: 'admin', component: DashboardAdminComponent, canActivate: [authGuard, adminGuard] },
-  { path: 'admin/categorias', component: GestionarCategoriasComponent, canActivate: [authGuard, adminGuard] },
-  { path: 'admin/usuarios', component: GestionarUsuariosComponent, canActivate: [authGuard, adminGuard] },
+  { path: 'admin', component: DashboardAdmin, canActivate: [authGuard, adminGuard] },
+  { path: 'admin/categorias', component: GestionarCategorias, canActivate: [authGuard, adminGuard] },
+  { path: 'admin/usuarios', component: GestionarUsuarios, canActivate: [authGuard, adminGuard] },
 
   { path: '**', redirectTo: '/login' }
 ];

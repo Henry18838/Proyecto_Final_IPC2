@@ -1,1 +1,64 @@
-<p>registro works!</p>
+<div class="registro-container">
+  <div class="registro-card">
+    <div class="registro-header">
+      <h1>🔗 ConnectWork</h1>
+      <p>Crea tu cuenta</p>
+    </div>
+
+    <div class="registro-body">
+      <h2>Registro</h2>
+
+      <div class="rol-selector">
+        <button [class]="form.rol === 'CLIENTE' ? 'rol-btn active' : 'rol-btn'" (click)="form.rol = 'CLIENTE'">
+          💼 Soy Cliente
+        </button>
+        <button [class]="form.rol === 'FREELANCER' ? 'rol-btn active' : 'rol-btn'" (click)="form.rol = 'FREELANCER'">
+          👨‍💻 Soy Freelancer
+        </button>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nombre completo *</label>
+          <input type="text" [(ngModel)]="form.nombre" class="form-control" placeholder="Tu nombre completo" />
+        </div>
+        <div class="form-group">
+          <label>Usuario *</label>
+          <input type="text" [(ngModel)]="form.username" class="form-control" placeholder="Nombre de usuario único" />
+        </div>
+        <div class="form-group">
+          <label>Correo electrónico *</label>
+          <input type="email" [(ngModel)]="form.email" class="form-control" placeholder="tu@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Contraseña *</label>
+          <input type="password" [(ngModel)]="form.password" class="form-control" placeholder="Contraseña segura" />
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="text" [(ngModel)]="form.telefono" class="form-control" placeholder="Tu teléfono" />
+        </div>
+        <div class="form-group">
+          <label>CUI</label>
+          <input type="text" [(ngModel)]="form.cui" class="form-control" placeholder="Tu CUI" />
+        </div>
+        <div class="form-group">
+          <label>Fecha de nacimiento</label>
+          <input type="date" [(ngModel)]="form.fechaNac" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>Dirección</label>
+          <input type="text" [(ngModel)]="form.direccion" class="form-control" placeholder="Tu dirección" />
+        </div>
+      </div>
+
+      <button class="btn-primary" (click)="registrar()" [disabled]="cargando">
+        {{ cargando ? 'Registrando...' : 'Crear Cuenta' }}
+      </button>
+
+      <p class="login-link">
+        ¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a>
+      </p>
+    </div>
+  </div>
+</div>
