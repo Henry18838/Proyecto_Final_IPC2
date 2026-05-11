@@ -1,0 +1,234 @@
+
+<style>
+#erd-wrap { padding: 1rem 0; }
+#erd svg { width: 100%; }
+</style>
+<div id="erd-wrap"><div id="erd"></div></div>
+<script type="module">
+import mermaid from 'https://esm.sh/mermaid@11/dist/mermaid.esm.min.mjs';
+const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+await document.fonts.ready;
+mermaid.initialize({
+  startOnLoad: false,
+  theme: 'base',
+  fontFamily: '"Anthropic Sans", sans-serif',
+  themeVariables: {
+    darkMode: dark,
+    fontSize: '12px',
+    fontFamily: '"Anthropic Sans", sans-serif',
+    lineColor: dark ? '#9c9a92' : '#73726c',
+    textColor: dark ? '#c2c0b6' : '#3d3d3a',
+  },
+});
+const diagram = `erDiagram
+  USUARIO {
+    int id_usuario PK
+    string nombre_completo
+    string username UK
+    string password_hash
+    string email
+    string telefono
+    string direccion
+    string cui
+    date fecha_nacimiento
+    enum rol
+    bool activo
+    bool perfil_completo
+    datetime creado_en
+  }
+
+  CLIENTE {
+    int id_cliente PK
+    int id_usuario FK
+    string descripcion
+    string sector
+    string sitio_web
+    decimal saldo
+  }
+
+  FREELANCER {
+    int id_freelancer PK
+    int id_usuario FK
+    string biografia
+    enum nivel_experiencia
+    decimal tarifa_hora
+    decimal saldo
+    decimal calificacion_promedio
+  }
+
+  ADMINISTRADOR {
+    int id_admin PK
+    int id_usuario FK
+  }
+
+  CATEGORIA {
+    int id_categoria PK
+    string nombre
+    string descripcion
+    bool activa
+  }
+
+  HABILIDAD {
+    int id_habilidad PK
+    int id_categoria FK
+    string nombre
+    string descripcion
+    bool activa
+  }
+
+  FREELANCER_HABILIDAD {
+    int id_freelancer FK
+    int id_habilidad FK
+  }
+
+  PROYECTO {
+    int id_proyecto PK
+    int id_cliente FK
+    int id_categoria FK
+    string titulo
+    text descripcion
+    decimal presupuesto_maximo
+    date fecha_limite
+    enum estado
+    datetime creado_en
+  }
+
+  PROYECTO_HABILIDAD {
+    int id_proyecto FK
+    int id_habilidad FK
+  }
+
+  PROPUESTA {
+    int id_propuesta PK
+    int id_proyecto FK
+    int id_freelancer FK
+    decimal monto_ofertado
+    int plazo_dias
+    text carta_presentacion
+    enum estado
+    datetime creado_en
+  }
+
+  CONTRATO {
+    int id_contrato PK
+    int id_propuesta FK
+    int id_comision_config FK
+    decimal monto
+    decimal comision_porcentaje
+    enum estado
+    datetime creado_en
+    datetime completado_en
+  }
+
+  ENTREGA {
+    int id_entrega PK
+    int id_contrato FK
+    text descripcion
+    string archivos_url
+    enum estado
+    string motivo_rechazo
+    datetime creado_en
+  }
+
+  CALIFICACION {
+    int id_calificacion PK
+    int id_contrato FK
+    int estrellas
+    text comentario
+    datetime creado_en
+  }
+
+  RECARGA {
+    int id_recarga PK
+    int id_cliente FK
+    decimal monto
+    datetime fecha
+  }
+
+  COMISION_CONFIG {
+    int id_comision_config PK
+    decimal porcentaje
+    datetime fecha_inicio
+    datetime fecha_fin
+  }
+
+  SALDO_GLOBAL {
+    int id_saldo_global PK
+    decimal total_acumulado
+    datetime ultima_actualizacion
+  }
+
+  SOLICITUD_HABILIDAD {
+    int id_solicitud PK
+    int id_freelancer FK
+    string nombre
+    string descripcion
+    enum estado
+    datetime creado_en
+  }
+
+  SOLICITUD_CATEGORIA {
+    int id_solicitud PK
+    int id_cliente FK
+    string nombre
+    string descripcion
+    enum estado
+    datetime creado_en
+  }
+
+  USUARIO ||--o| CLIENTE : "es"
+  USUARIO ||--o| FREELANCER : "es"
+  USUARIO ||--o| ADMINISTRADOR : "es"
+
+  CLIENTE ||--o{ PROYECTO : "publica"
+  CLIENTE ||--o{ RECARGA : "realiza"
+  CLIENTE ||--o{ SOLICITUD_CATEGORIA : "solicita"
+
+  CATEGORIA ||--o{ HABILIDAD : "tiene"
+  CATEGORIA ||--o{ PROYECTO : "clasifica"
+
+  FREELANCER ||--o{ FREELANCER_HABILIDAD : "posee"
+  HABILIDAD ||--o{ FREELANCER_HABILIDAD : "asignada a"
+
+  PROYECTO ||--o{ PROYECTO_HABILIDAD : "requiere"
+  HABILIDAD ||--o{ PROYECTO_HABILIDAD : "requerida en"
+
+  PROYECTO ||--o{ PROPUESTA : "recibe"
+  FREELANCER ||--o{ PROPUESTA : "envía"
+
+  PROPUESTA ||--o| CONTRATO : "genera"
+  COMISION_CONFIG ||--o{ CONTRATO : "aplica a"
+
+  CONTRATO ||--o{ ENTREGA : "contiene"
+  CONTRATO ||--o| CALIFICACION : "tiene"
+
+  FREELANCER ||--o{ SOLICITUD_HABILIDAD : "solicita"
+`;
+
+const { svg } = await mermaid.render('erd-svg', diagram);
+document.getElementById('erd').innerHTML = svg;
+
+document.querySelectorAll('#erd svg .node').forEach(node => {
+  const firstPath = node.querySelector('path[d]');
+  if (!firstPath) return;
+  const d = firstPath.getAttribute('d');
+  const nums = d.match(/-?[\d.]+/g)?.map(Number);
+  if (!nums || nums.length < 8) return;
+  const xs = [nums[0], nums[2], nums[4], nums[6]];
+  const ys = [nums[1], nums[3], nums[5], nums[7]];
+  const x = Math.min(...xs), y = Math.min(...ys);
+  const w = Math.max(...xs) - x, h = Math.max(...ys) - y;
+  const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  rect.setAttribute('x', x); rect.setAttribute('y', y);
+  rect.setAttribute('width', w); rect.setAttribute('height', h);
+  rect.setAttribute('rx', '8');
+  for (const a of ['fill', 'stroke', 'stroke-width', 'class', 'style']) {
+    if (firstPath.hasAttribute(a)) rect.setAttribute(a, firstPath.getAttribute(a));
+  }
+  firstPath.replaceWith(rect);
+});
+
+document.querySelectorAll('#erd svg .row-rect-odd path, #erd svg .row-rect-even path').forEach(p => {
+  p.setAttribute('stroke', 'none');
+});
+</script>
