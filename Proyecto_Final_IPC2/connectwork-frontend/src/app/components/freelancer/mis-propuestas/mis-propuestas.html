@@ -1,1 +1,43 @@
-<p>mis-propuestas works!</p>
+<div class="freelancer-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header"><h2>🔗 ConnectWork</h2><p>Panel Freelancer</p></div>
+    <nav class="sidebar-nav">
+      <a routerLink="/freelancer" class="nav-item">🏠 Dashboard</a>
+      <a routerLink="/freelancer/explorar" class="nav-item">🔍 Explorar Proyectos</a>
+      <a routerLink="/freelancer/propuestas" class="nav-item active">📋 Mis Propuestas</a>
+      <a routerLink="/freelancer/contratos" class="nav-item">📁 Mis Contratos</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <h1>📋 Mis Propuestas</h1>
+
+    @if (propuestas.length === 0) {
+      <div class="empty">No has enviado propuestas aún</div>
+    }
+
+    <div class="card">
+      <table class="tabla">
+        <thead>
+          <tr><th>Proyecto</th><th>Monto</th><th>Plazo</th><th>Estado</th><th>Fecha</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+          @for (p of propuestas; track p.id) {
+            <tr>
+              <td>{{ p.tituloProyecto }}</td>
+              <td>Q{{ p.montoOfertado }}</td>
+              <td>{{ p.plazoDias }} días</td>
+              <td><span [class]="badgeClass(p.estado)">{{ p.estado }}</span></td>
+              <td>{{ p.fechaEnvio | slice:0:10 }}</td>
+              <td>
+                @if (p.estado === 'PENDIENTE') {
+                  <button class="btn-danger" (click)="retirar(p.id)">Retirar</button>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>

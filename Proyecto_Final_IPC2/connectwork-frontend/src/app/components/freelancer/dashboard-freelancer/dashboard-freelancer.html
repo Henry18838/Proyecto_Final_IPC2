@@ -1,1 +1,72 @@
-<p>dashboard-freelancer works!</p>
+<div class="freelancer-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>🔗 ConnectWork</h2>
+      <p>Panel Freelancer</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a routerLink="/freelancer" class="nav-item active">🏠 Dashboard</a>
+      <a routerLink="/freelancer/explorar" class="nav-item">🔍 Explorar Proyectos</a>
+      <a routerLink="/freelancer/propuestas" class="nav-item">📋 Mis Propuestas</a>
+      <a routerLink="/freelancer/contratos" class="nav-item">📁 Mis Contratos</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="saldo-box">
+        <span>💰 Saldo</span>
+        <strong>Q{{ freelancer?.saldo?.toFixed(2) || '0.00' }}</strong>
+      </div>
+      <p>{{ usuario?.nombre }}</p>
+      <button (click)="logout()" class="btn-logout">Cerrar Sesión</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="welcome-card">
+      <h1>Bienvenido, {{ freelancer?.nombre }} 👋</h1>
+      <p>⭐ Calificación: {{ freelancer?.calificacionPromedio?.toFixed(1) || '0.0' }} | 
+         {{ freelancer?.experiencia }} | Q{{ freelancer?.tarifaHora }}/hora</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📁</div>
+        <div class="stat-info">
+          <h3>{{ contratosActivos.length }}</h3>
+          <p>Contratos Activos</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📋</div>
+        <div class="stat-info">
+          <h3>{{ propuestas.length }}</h3>
+          <p>Propuestas Enviadas</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-info">
+          <h3>Q{{ freelancer?.saldo?.toFixed(2) || '0.00' }}</h3>
+          <p>Saldo Disponible</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card" routerLink="/freelancer/explorar">
+        <div class="card-icon">🔍</div>
+        <h3>Explorar Proyectos</h3>
+        <p>Encuentra proyectos que coincidan con tus habilidades</p>
+      </div>
+      <div class="card" routerLink="/freelancer/propuestas">
+        <div class="card-icon">📋</div>
+        <h3>Mis Propuestas</h3>
+        <p>Revisa el estado de tus propuestas enviadas</p>
+      </div>
+      <div class="card" routerLink="/freelancer/contratos">
+        <div class="card-icon">📁</div>
+        <h3>Mis Contratos</h3>
+        <p>Gestiona tus contratos activos y sube entregas</p>
+      </div>
+    </div>
+  </main>
+</div>

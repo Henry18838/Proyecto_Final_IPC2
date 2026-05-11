@@ -1,1 +1,107 @@
-<p>explorar-proyectos works!</p>
+<div class="freelancer-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header"><h2>🔗 ConnectWork</h2><p>Panel Freelancer</p></div>
+    <nav class="sidebar-nav">
+      <a routerLink="/freelancer" class="nav-item">🏠 Dashboard</a>
+      <a routerLink="/freelancer/explorar" class="nav-item active">🔍 Explorar Proyectos</a>
+      <a routerLink="/freelancer/propuestas" class="nav-item">📋 Mis Propuestas</a>
+      <a routerLink="/freelancer/contratos" class="nav-item">📁 Mis Contratos</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <h1>🔍 Explorar Proyectos</h1>
+
+    <!-- Filtros -->
+    <div class="filtros-card">
+      <select [(ngModel)]="filtros.categoria" class="form-control">
+        <option value="">Todas las categorías</option>
+        @for (c of categorias; track c.id) {
+          <option [value]="c.id">{{ c.nombre }}</option>
+        }
+      </select>
+      <input type="number" [(ngModel)]="filtros.min" placeholder="Presupuesto mínimo" class="form-control" />
+      <input type="number" [(ngModel)]="filtros.max" placeholder="Presupuesto máximo" class="form-control" />
+      <button class="btn-primary" (click)="cargarProyectos()">Filtrar</button>
+    </div>
+
+    <!-- Lista proyectos -->
+    @if (proyectos.length === 0) {
+      <div class="empty">No hay proyectos disponibles</div>
+    }
+
+    <div class="proyectos-grid">
+      @for (p of proyectos; track p.id) {
+        <div class="proyecto-card" (click)="verDetalle(p)">
+          <div class="proyecto-header">
+            <span class="categoria-badge">{{ p.nombreCategoria }}</span>
+            <span class="presupuesto">Q{{ p.presupuestoMax }}</span>
+          </div>
+          <h3>{{ p.titulo }}</h3>
+          <p>{{ p.descripcion | slice:0:100 }}...</p>
+          <div class="habilidades">
+            @for (h of p.habilidades; track h.id) {
+              <span class="habilidad-tag">{{ h.nombre }}</span>
+            }
+          </div>
+          <div class="proyecto-footer">
+            <span>📅 {{ p.fechaLimite }}</span>
+            <span>👤 {{ p.nombreCliente }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Modal detalle -->
+    @if (proyectoSeleccionado) {
+      <div class="modal-overlay" (click)="cerrarDetalle()">
+        <div class="modal" (click)="$event.stopPropagation()">
+          <div class="modal-header">
+            <h2>{{ proyectoSeleccionado.titulo }}</h2>
+            <button (click)="cerrarDetalle()">✕</button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Categoría:</strong> {{ proyectoSeleccionado.nombreCategoria }}</p>
+            <p><strong>Presupuesto máximo:</strong> Q{{ proyectoSeleccionado.presupuestoMax }}</p>
+            <p><strong>Fecha límite:</strong> {{ proyectoSeleccionado.fechaLimite }}</p>
+            <p><strong>Cliente:</strong> {{ proyectoSeleccionado.nombreCliente }}</p>
+            <p><strong>Descripción:</strong> {{ proyectoSeleccionado.descripcion }}</p>
+            <div class="habilidades">
+              @for (h of proyectoSeleccionado.habilidades; track h.id) {
+                <span class="habilidad-tag">{{ h.nombre }}</span>
+              }
+            </div>
+
+            @if (!mostrandoPropuesta) {
+              <button class="btn-primary" (click)="mostrandoPropuesta = true">
+                Enviar Propuesta
+              </button>
+            } @else {
+              <div class="propuesta-form">
+                <h3>Tu Propuesta</h3>
+                <div class="form-group">
+                  <label>Monto ofertado (Q)</label>
+                  <input type="number" [(ngModel)]="propuestaForm.montoOfertado" class="form-control"
+                    [max]="proyectoSeleccionado.presupuestoMax" />
+                </div>
+                <div class="form-group">
+                  <label>Plazo de entrega (días)</label>
+                  <input type="number" [(ngModel)]="propuestaForm.plazoDias" class="form-control" min="1" />
+                </div>
+                <div class="form-group">
+                  <label>Carta de presentación</label>
+                  <textarea [(ngModel)]="propuestaForm.carta" class="form-control" rows="4"
+                    placeholder="Describe cómo abordarás este proyecto..."></textarea>
+                </div>
+                <div class="btn-group">
+                  <button class="btn-primary" (click)="enviarPropuesta()">Enviar</button>
+                  <button class="btn-secondary" (click)="mostrandoPropuesta = false">Cancelar</button>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </main>
+</div>

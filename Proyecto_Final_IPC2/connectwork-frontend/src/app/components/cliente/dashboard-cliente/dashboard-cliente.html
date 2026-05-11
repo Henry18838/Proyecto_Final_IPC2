@@ -1,1 +1,65 @@
-<p>dashboard-cliente works!</p>
+<div class="cliente-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>🔗 ConnectWork</h2>
+      <p>Panel Cliente</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a routerLink="/cliente" class="nav-item active">🏠 Dashboard</a>
+      <a routerLink="/cliente/proyectos" class="nav-item">📋 Mis Proyectos</a>
+      <a routerLink="/cliente/proyectos/crear" class="nav-item">➕ Nuevo Proyecto</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="saldo-box">
+        <span>💰 Saldo</span>
+        <strong>Q{{ cliente?.saldo?.toFixed(2) || '0.00' }}</strong>
+      </div>
+      <p>{{ usuario?.nombre }}</p>
+      <button (click)="logout()" class="btn-logout">Cerrar Sesión</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="welcome-card">
+      <h1>Bienvenido, {{ cliente?.nombre }} 👋</h1>
+      <p>Sector: {{ cliente?.sector }}</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📋</div>
+        <div class="stat-info">
+          <h3>{{ proyectos.length }}</h3>
+          <p>Total Proyectos</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔄</div>
+        <div class="stat-info">
+          <h3>{{ proyectosActivos() }}</h3>
+          <p>Proyectos Activos</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-info">
+          <h3>Q{{ cliente?.saldo?.toFixed(2) || '0.00' }}</h3>
+          <p>Saldo Disponible</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card" routerLink="/cliente/proyectos">
+        <div class="card-icon">📋</div>
+        <h3>Mis Proyectos</h3>
+        <p>Gestiona tus proyectos publicados</p>
+      </div>
+      <div class="card" routerLink="/cliente/proyectos/crear">
+        <div class="card-icon">➕</div>
+        <h3>Nuevo Proyecto</h3>
+        <p>Publica un nuevo proyecto</p>
+      </div>
+    </div>
+  </main>
+</div>

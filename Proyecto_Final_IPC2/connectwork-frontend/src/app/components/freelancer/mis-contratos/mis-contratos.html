@@ -1,1 +1,71 @@
-<p>mis-contratos works!</p>
+<div class="freelancer-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header"><h2>🔗 ConnectWork</h2><p>Panel Freelancer</p></div>
+    <nav class="sidebar-nav">
+      <a routerLink="/freelancer" class="nav-item">🏠 Dashboard</a>
+      <a routerLink="/freelancer/explorar" class="nav-item">🔍 Explorar Proyectos</a>
+      <a routerLink="/freelancer/propuestas" class="nav-item">📋 Mis Propuestas</a>
+      <a routerLink="/freelancer/contratos" class="nav-item active">📁 Mis Contratos</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <h1>📁 Mis Contratos Activos</h1>
+
+    @if (!contratoSeleccionado) {
+      @if (contratos.length === 0) {
+        <div class="empty">No tienes contratos activos</div>
+      }
+      <div class="contratos-grid">
+        @for (c of contratos; track c.id) {
+          <div class="contrato-card" (click)="verContrato(c)">
+            <h3>{{ c.tituloProyecto }}</h3>
+            <p>Cliente: {{ c.nombreCliente }}</p>
+            <p>Monto: <strong>Q{{ c.monto }}</strong></p>
+            <p>Inicio: {{ c.fechaInicio | slice:0:10 }}</p>
+            <button class="btn-primary">Ver Detalles →</button>
+          </div>
+        }
+      </div>
+    } @else {
+      <button class="btn-back" (click)="contratoSeleccionado = null">← Volver</button>
+
+      <div class="card">
+        <h2>{{ contratoSeleccionado.tituloProyecto }}</h2>
+        <p>Cliente: {{ contratoSeleccionado.nombreCliente }} | Monto: Q{{ contratoSeleccionado.monto }}</p>
+
+        <div class="entrega-form">
+          <h3>Subir Nueva Entrega</h3>
+          <div class="form-group">
+            <label>Descripción del trabajo realizado *</label>
+            <textarea [(ngModel)]="entregaForm.descripcion" class="form-control" rows="3"
+              placeholder="Describe lo que entregás..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>URL de archivos (opcional)</label>
+            <input type="text" [(ngModel)]="entregaForm.archivos" class="form-control"
+              placeholder="https://drive.google.com/..." />
+          </div>
+          <button class="btn-primary" (click)="subirEntrega()">Subir Entrega</button>
+        </div>
+
+        <h3>Historial de Entregas</h3>
+        @if (entregas.length === 0) {
+          <p class="empty">No hay entregas aún</p>
+        }
+        @for (e of entregas; track e.id) {
+          <div class="entrega-item">
+            <div class="entrega-header">
+              <span [class]="badgeClass(e.estado)">{{ e.estado }}</span>
+              <span>{{ e.fechaEntrega | slice:0:10 }}</span>
+            </div>
+            <p>{{ e.descripcion }}</p>
+            @if (e.motivoRechazo) {
+              <p class="motivo-rechazo">❌ Motivo: {{ e.motivoRechazo }}</p>
+            }
+          </div>
+        }
+      </div>
+    }
+  </main>
+</div>

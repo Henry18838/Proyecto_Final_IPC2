@@ -1,0 +1,40 @@
+.freelancer-layout { display: flex; min-height: 100vh; background: #f5f6fa; }
+.sidebar { width: 260px; background: linear-gradient(180deg, #11998e 0%, #38ef7d 100%); color: white; display: flex; flex-direction: column; position: fixed; height: 100vh; }
+.sidebar-header { padding: 24px 20px; border-bottom: 1px solid rgba(255,255,255,0.2); }
+.sidebar-header h2 { margin: 0 0 4px 0; font-size: 1.3rem; }
+.sidebar-header p { margin: 0; opacity: 0.8; font-size: 0.85rem; }
+.sidebar-nav { flex: 1; padding: 16px 0; }
+.nav-item { display: block; padding: 14px 20px; color: rgba(255,255,255,0.85); text-decoration: none; transition: all 0.3s; font-size: 0.95rem; }
+.nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.2); color: white; border-left: 3px solid white; }
+.main-content { margin-left: 260px; flex: 1; padding: 30px; }
+.main-content h1 { margin: 0 0 24px 0; color: #333; }
+.filtros-card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 24px; display: flex; gap: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+.form-control { padding: 10px 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 0.9rem; flex: 1; }
+.form-control:focus { outline: none; border-color: #11998e; }
+.btn-primary { padding: 10px 20px; background: #11998e; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9rem; white-space: nowrap; }
+.btn-secondary { padding: 10px 20px; background: #95a5a6; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
+.empty { text-align: center; padding: 40px; color: #666; font-size: 1.1rem; }
+.proyectos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.proyecto-card { background: white; border-radius: 16px; padding: 20px; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+.proyecto-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+.proyecto-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.categoria-badge { background: #e8f5e9; color: #2e7d32; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; }
+.presupuesto { font-weight: 700; color: #11998e; font-size: 1.1rem; }
+.proyecto-card h3 { margin: 0 0 8px 0; color: #333; font-size: 1rem; }
+.proyecto-card p { color: #666; font-size: 0.9rem; margin: 0 0 12px 0; }
+.habilidades { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.habilidad-tag { background: #f0f2ff; color: #667eea; padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; }
+.proyecto-footer { display: flex; justify-content: space-between; color: #888; font-size: 0.8rem; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.modal { background: white; border-radius: 16px; width: 90%; max-width: 600px; max-height: 85vh; overflow-y: auto; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border-bottom: 1px solid #f0f0f0; }
+.modal-header h2 { margin: 0; font-size: 1.2rem; }
+.modal-header button { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #666; }
+.modal-body { padding: 24px; }
+.modal-body p { margin: 0 0 10px 0; color: #555; }
+.propuesta-form { margin-top: 20px; border-top: 1px solid #f0f0f0; padding-top: 20px; }
+.propuesta-form h3 { margin: 0 0 16px 0; color: #333; }
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; margin-bottom: 6px; color: #555; font-size: 0.85rem; font-weight: 500; }
+.form-group .form-control { width: 100%; box-sizing: border-box; }
+.btn-group { display: flex; gap: 10px; margin-top: 16px; }

@@ -1,1 +1,73 @@
-<p>completar-perfil works!</p>
+<div class="perfil-container">
+  <div class="perfil-card">
+    <div class="perfil-header">
+      <h1>🔗 ConnectWork</h1>
+      <p>Completa tu perfil para comenzar</p>
+    </div>
+
+    <div class="perfil-body">
+      @if (usuario?.rol === 'CLIENTE') {
+        <h2>💼 Información de Cliente</h2>
+
+        <div class="form-group">
+          <label>Descripción de tu empresa o perfil *</label>
+          <textarea [(ngModel)]="clienteForm.descripcion" class="form-control" rows="3"
+            placeholder="Describe tu empresa o quién eres..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Sector o industria *</label>
+          <input type="text" [(ngModel)]="clienteForm.sector" class="form-control"
+            placeholder="Ej: Tecnología, Salud, Educación..." />
+        </div>
+
+        <div class="form-group">
+          <label>Sitio web (opcional)</label>
+          <input type="text" [(ngModel)]="clienteForm.sitioWeb" class="form-control"
+            placeholder="https://tuempresa.com" />
+        </div>
+      }
+
+      @if (usuario?.rol === 'FREELANCER') {
+        <h2>👨‍💻 Información de Freelancer</h2>
+
+        <div class="form-group">
+          <label>Biografía profesional *</label>
+          <textarea [(ngModel)]="freelancerForm.bio" class="form-control" rows="3"
+            placeholder="Describe tu experiencia y especialidades..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Nivel de experiencia *</label>
+          <select [(ngModel)]="freelancerForm.experiencia" class="form-control">
+            <option value="JUNIOR">Junior</option>
+            <option value="SEMI_SENIOR">Semi-Senior</option>
+            <option value="SENIOR">Senior</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Tarifa por hora (Q) *</label>
+          <input type="number" [(ngModel)]="freelancerForm.tarifaHora" class="form-control"
+            placeholder="Ej: 150" />
+        </div>
+
+        <div class="form-group">
+          <label>Habilidades * (selecciona las que dominas)</label>
+          <div class="habilidades-grid">
+            @for (h of habilidades; track h.id) {
+              <div [class]="estaSeleccionada(h.id) ? 'habilidad-chip selected' : 'habilidad-chip'"
+                (click)="toggleHabilidad(h.id)">
+                {{ h.nombre }}
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <button class="btn-primary" (click)="guardar()">
+        Guardar y Continuar →
+      </button>
+    </div>
+  </div>
+</div>
